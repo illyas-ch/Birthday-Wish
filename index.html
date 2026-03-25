@@ -3,33 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <title>Happy Birthday!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Important for mobile scaling -->
   <style>
     body {
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      background: #fff;
       font-family: 'Comic Sans MS', cursive, sans-serif;
       text-align: center;
       margin: 0;
       padding: 0;
-      overflow: hidden;
     }
     h1 {
-      font-size: 4em;
-      margin-top: 50px;
-      background: linear-gradient(90deg, #ff6f61, #ffcc70);
+      font-size: 8vw; /* scales with screen width */
+      margin-top: 5vh;
+      background: linear-gradient(90deg, #ff6f61, #ffcc70, #6a5acd, #00c9ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 2px 2px #fff;
+      text-shadow: 2px 2px #aaa;
     }
     .message {
-      font-size: 1.5em;
-      margin-top: 20px;
-      color: #333;
+      font-size: 4vw; /* scales with screen width */
+      margin-top: 2vh;
+      color: #444;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    img {
+      margin-top: 3vh;
+      max-width: 90%; /* fits smaller screens */
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
     button {
-      margin-top: 30px;
-      padding: 12px 25px;
-      font-size: 1.2em;
-      background-color: #ff6f61;
+      margin-top: 4vh;
+      padding: 2vh 4vw;
+      font-size: 4vw;
+      background-color: #6a5acd;
       color: #fff;
       border: none;
       border-radius: 8px;
@@ -37,92 +46,33 @@
       box-shadow: 0 4px 6px rgba(0,0,0,0.2);
     }
     button:hover {
-      background-color: #ff3b2e;
+      background-color: #483d8b;
     }
-    .balloon {
-      position: absolute;
-      font-size: 3em;
-      animation: float 6s infinite ease-in-out;
-    }
-    @keyframes float {
-      0% { transform: translateY(100vh); opacity: 0; }
-      50% { opacity: 1; }
-      100% { transform: translateY(-10vh); opacity: 0; }
-    }
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
+
+    /* Extra tweaks for larger laptop screens */
+    @media (min-width: 768px) {
+      h1 { font-size: 3em; }
+      .message { font-size: 1.5em; }
+      button { font-size: 1.2em; padding: 12px 25px; }
     }
   </style>
 </head>
 <body>
-  <h1>🎉 Happy 19th Birthday Pookiemon! 🎂</h1>
-  <div class="message">Wishing you a day filled with love, laughter, and joy! May Allah listen to every pray of yours and you always stay happy! Wish you a successful life ahead.</div>
+  <h1>🎉 Happy Birthday! 🎂</h1>
+  
+  <!-- Change the message here -->
+  <div class="message">Wishing you endless joy and funky vibes today!</div>
+  
+  <!-- Add your image here -->
+  <img src="your-image.jpg" alt="Birthday Celebration">
+
   <button onclick="playMusic()">Play Birthday Song</button>
-
   <audio id="song" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-
-  <canvas id="confetti"></canvas>
 
   <script>
     function playMusic() {
       document.getElementById('song').play();
     }
-
-    // Confetti animation
-    const canvas = document.getElementById('confetti');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const confettiPieces = [];
-    for (let i = 0; i < 150; i++) {
-      confettiPieces.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 6 + 2,
-        d: Math.random() * 100,
-        color: `hsl(${Math.random() * 360}, 100%, 50%)`,
-        tilt: Math.random() * 10 - 10
-      });
-    }
-
-    function drawConfetti() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      confettiPieces.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, false);
-        ctx.fillStyle = p.color;
-        ctx.fill();
-      });
-      updateConfetti();
-    }
-
-    function updateConfetti() {
-      confettiPieces.forEach(p => {
-        p.y += Math.cos(p.d) + 1 + p.r / 2;
-        p.x += Math.sin(p.d);
-        if (p.y > canvas.height) {
-          p.y = -10;
-          p.x = Math.random() * canvas.width;
-        }
-      });
-    }
-
-    setInterval(drawConfetti, 20);
-
-    // Floating balloons
-    const emojis = ["🎈","🎈","🎈","🎈","🎈"];
-    emojis.forEach((emoji, i) => {
-      const balloon = document.createElement("div");
-      balloon.className = "balloon";
-      balloon.style.left = `${i * 20 + 10}%`;
-      balloon.style.animationDelay = `${i * 2}s`;
-      balloon.textContent = emoji;
-      document.body.appendChild(balloon);
-    });
   </script>
 </body>
 </html>
